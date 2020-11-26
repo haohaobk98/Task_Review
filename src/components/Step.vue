@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <div class="wrap" :style="wrapStyle">
     <div v-if="order == 1" class="wrap-up">
      <slot />
     </div>
@@ -78,6 +78,14 @@ export default {
     bgColor() {
       const bgColor = this.visited == 0 ? '#b4e1e8' : (this.visited == 1 ? '#007bff' : '#d3d3d3')
       return bgColor;
+    },
+
+    wrapStyle() {
+      const style = this.height ? `
+        height: ${this.height}px !important;
+        margin-bottom: 2px;
+      ` : ''
+      return `${style}`
     },
 
     mainStepStyles() {
