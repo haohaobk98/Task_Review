@@ -1,0 +1,64 @@
+<div nz-row class="history-header">
+    <div nz-col nzSpan="1">
+        <img [src]="getIcon()" />
+    </div>
+    <div nz-col nzOffset="8">
+        Recent Transactions
+    </div>
+</div>
+
+<div class="history-content">
+    <div nz-row class="history-search">
+        <!-- Search sections -->
+        <div nz-col nzSpan="11">
+            <nz-input-group [nzSuffix]="suffixIconSearch">
+                <input type="text" nz-input [(ngModel)]="searchData" placeholder="Search by typing..." (keyup)="search($event)" />
+              </nz-input-group>
+              <ng-template #suffixIconSearch>
+                <i nz-icon [nzType]="searchData == '' ? 'search' : 'close'" (click)="clear()"></i>
+              </ng-template>
+        </div>
+
+        <div nz-col nzSpan="1"></div>
+        <div nz-col nzSpan="12">
+            <span>Sort by </span>
+            <span>
+                <nz-radio-group [(ngModel)]="sortOption" (ngModelChange)="sort()">
+                    <label nz-radio-button nzValue="date">DATE</label>
+                    <label nz-radio-button nzValue="account">BENEFICIARY</label>
+                    <label nz-radio-button nzValue="amount">AMOUNT</label>
+                </nz-radio-group>
+            </span>
+        </div>
+    </div>
+
+
+    <div nz-row class="history-body">
+        <nz-table nzTemplateMode class="history-table">
+            <thead>
+            </thead>
+            <tbody>
+              <tr *ngFor="let transaction of dataDisplay">
+                <td class="date" [style]="getStyle(transaction  )">
+                    {{ transaction.dates.valueDate | date: 'MMM d' }}
+                </td>
+                <td class="logo">
+                    <img [src]="getImage(transaction.merchant.name)" width="20px" height="20px"/>
+                </td>
+                <td class="card">
+                    <div>
+                        <strong>{{ transaction.merchant.name }}</strong>
+                    </div>
+                    <div> {{ transaction.transaction.type }}</div>
+                </td>
+                <td class="amount">
+                    <div>
+                        <strong>{{ transaction.transaction.amountCurrency.amount |  currency:transaction.transaction.amountCurrency.currencyCode }}</strong>
+                    </div>
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+    </div>
+
+</div>

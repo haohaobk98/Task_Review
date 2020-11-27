@@ -1,0 +1,23 @@
+
+.header {
+    padding: 10px 0px 15px 0px;
+}
+
+.content {
+    height: 1000px;
+    background: url(../../../assets/background.jpg) top fixed !important;
+    width: 100%;
+    padding: 70px 0px;
+}
+
+.transaction-form{
+    height: 400px;
+    width: 350px;
+    background-color: #f1f1f1;
+}
+
+.transaction-history{
+    width: 400px;
+    background-color: #d3d3d3;
+
+}
