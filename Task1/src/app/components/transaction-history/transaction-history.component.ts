@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as JsonData from '@mocks/transactions.json';
 import ImageMapping from '@mocks/mappingImage.js';
+import { TransactionModel } from '@models/transaction';
+import { NzNotificationService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-transaction-history',
   templateUrl: './transaction-history.component.html',
   styleUrls: ['./transaction-history.component.css']
 })
-export class TransactionHistoryComponent implements OnInit {
+export class TransactionHistoryComponent implements OnInit, OnChanges {
+
+  @Input() transaction: TransactionModel;
 
   searchData = '';
   sortOption = '';
@@ -16,11 +19,22 @@ export class TransactionHistoryComponent implements OnInit {
   dataSource = JSON.parse(JSON.stringify(JsonData)).default.data;
   dataDisplay = JSON.parse(JSON.stringify(JsonData)).default.data;
 
-  constructor() { }
+  constructor(private nzNotification: NzNotificationService) { }
 
   ngOnInit(): void {
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    const newTransaction = changes.transaction.currentValue;
+    if (newTransaction) {
+      this.dataSource.unshift(newTransaction);
+      this.dataDisplay.unshift(newTransaction);
+      this.nzNotification.blank(
+        'Tranfer success!',
+        `Transfered €${newTransaction.transaction.amountCurrency.amount} to ${newTransaction.merchant.name}`
+      );
+    }
+  }
   getImage(value) {
     const currentImage = this.imageMapping.find(item => item.value === value);
     return currentImage ? require(`assets/icons/${currentImage.key}.png`).default : '';

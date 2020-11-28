@@ -20,6 +20,7 @@
     ],
     "paths": {
       "@components/*": ["app/components/*"],
+      "@models/*": ["app/models/*"],
       "@assets/*": ["assets/*"],
       "@mocks/*": ["mocks/*"]
     }

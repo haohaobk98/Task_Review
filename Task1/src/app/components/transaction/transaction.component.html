@@ -11,7 +11,7 @@
 <div class="content" nz-row>
     <div nz-col nzSpan="4" nzOffset="3" class="transaction-form">
         <!-- transaction form -->
-        <app-transaction-form></app-transaction-form>
+        <app-transaction-form (newTransaction)="addTransaction($event)"></app-transaction-form>
 
     </div>
 
@@ -21,6 +21,6 @@
 
     <div nz-col nzSpan="12" class="transaction-history">
         <!-- transaction history -->
-        <app-transaction-history></app-transaction-history>
+        <app-transaction-history [transaction]="transaction"></app-transaction-history>
     </div>
 </div>
